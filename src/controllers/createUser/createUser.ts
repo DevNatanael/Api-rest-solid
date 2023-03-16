@@ -1,3 +1,5 @@
+import validator from 'validator'
+
 import { User } from "../../models/user";
 import { HttpRequest, HttpResponse } from "../protocols";
 import {
@@ -10,16 +12,29 @@ export class CreateUserController implements ICreateUserController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
   async handle(
-    httpRequest: HttpRequest<CreateUserParams>
+    httpRequest: HttpRequest<CreateUserParams|any>
   ): Promise<HttpResponse<User>> {
     try {
-      //validar se body existe
+      // verificar campos obrigatorios
+      const requiredFields = ["firstName", "lastName", "email", "password"];
 
-      if (!httpRequest.body) {
-        return {
-          statusCode: 400,
-          body: "Por favor insira as informações",
-        };
+      for (const field of requiredFields) {
+        if (!httpRequest?.body?.[field as keyof CreateUserParams].length) {
+          return {
+            statusCode: 400,
+            body: `Campo ${field} não pode estar vazio`,
+          };
+        }
+      }
+
+      //verificar se email é valido
+      const emailIsValid = validator.isEmail(httpRequest.body.email);
+
+      if(!emailIsValid){
+        return{
+            statusCode:400,
+            body:"email não é válido"
+        }
       }
 
       const user = await this.createUserRepository.createUser(httpRequest.body);
