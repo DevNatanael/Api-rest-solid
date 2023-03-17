@@ -10,7 +10,7 @@ import { DeleteUserController } from "./deleteUser/deleteUser";
 import { GetUsersController } from "./getUsers/getUsers";
 import { UpdateUserController } from "./updateUser/updateUser";
 
-export class GeneralUsersController {
+ class GeneralUsersController {
   async getUsers(req: Request, res: Response) {
     const getUsersRepository = new MongoGetUsersRepository();
     const getUsersController = new GetUsersController(getUsersRepository);
@@ -63,3 +63,5 @@ export class GeneralUsersController {
     res.status(statusCode).send(body);
   }
 }
+
+export default new GeneralUsersController();
