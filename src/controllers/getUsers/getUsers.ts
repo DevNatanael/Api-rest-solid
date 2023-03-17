@@ -1,6 +1,7 @@
-import { IGetUsersController, IGetUsersRepository } from "./protocolGetUsers";
+import { IController } from "../protocols";
+import { IGetUsersRepository } from "./protocolGetUsers";
 
-export class GetUsersController implements IGetUsersController {
+export class GetUsersController implements IController {
   constructor(private readonly getUsersRepository: IGetUsersRepository) {}
 
   async handle() {
@@ -16,7 +17,7 @@ export class GetUsersController implements IGetUsersController {
     } catch (error) {
       return {
         statusCode: 500,
-        body: 'algo deu errado',
+        body: "algo deu errado",
       };
     }
   }

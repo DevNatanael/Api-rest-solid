@@ -1,18 +1,14 @@
-import validator from 'validator'
+import validator from "validator";
 
 import { User } from "../../models/user";
-import { HttpRequest, HttpResponse } from "../protocols";
-import {
-  CreateUserParams,
-  ICreateUserController,
-  ICreateUserRepository,
-} from "./protocolCreateUser";
+import { HttpRequest, HttpResponse, IController } from "../protocols";
+import { CreateUserParams, ICreateUserRepository } from "./protocolCreateUser";
 
-export class CreateUserController implements ICreateUserController {
+export class CreateUserController implements IController {
   constructor(private readonly createUserRepository: ICreateUserRepository) {}
 
   async handle(
-    httpRequest: HttpRequest<CreateUserParams|any>
+    httpRequest: HttpRequest<CreateUserParams | any>
   ): Promise<HttpResponse<User>> {
     try {
       // verificar campos obrigatorios
@@ -30,11 +26,11 @@ export class CreateUserController implements ICreateUserController {
       //verificar se email é valido
       const emailIsValid = validator.isEmail(httpRequest.body.email);
 
-      if(!emailIsValid){
-        return{
-            statusCode:400,
-            body:"email não é válido"
-        }
+      if (!emailIsValid) {
+        return {
+          statusCode: 400,
+          body: "email não é válido",
+        };
       }
 
       const user = await this.createUserRepository.createUser(httpRequest.body);
