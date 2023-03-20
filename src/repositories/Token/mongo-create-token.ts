@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   CreateTokenParams,
   ICreateToken,
@@ -9,10 +10,6 @@ export class MongoCreateToken implements ICreateToken {
     const user = await MongoClient.db
       .collection("users")
       .findOne({ email: params?.email });
-
-    if (!user) {
-      throw new Error("Usuário não foi criado");
-    }
 
     return user;
   }
