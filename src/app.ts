@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import { config } from "dotenv";
 import { MongoClient } from "./database/mongo";
 import usersRoutes from "./routes/usersRoutes";
-import tokenRoutes from './routes/tokenRoutes'
+import loginRoutes from './routes/loginRoutes'
 
 config();
 class App {
@@ -20,7 +20,7 @@ class App {
 
   routes() {
     this.app.use("/users", usersRoutes);
-    this.app.use("/tokens", tokenRoutes);
+    this.app.use("/login", loginRoutes);
   }
 
   public async connectDB(): Promise<void> {

@@ -10,7 +10,6 @@ export class MongoCreateToken implements ICreateToken {
     const user = await MongoClient.db
       .collection("users")
       .findOne({ email: params?.email });
-
     return user;
   }
 }

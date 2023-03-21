@@ -51,7 +51,7 @@ export class TokenController implements IController {
     } catch (error) {
       return {
         statusCode: 500,
-        body: "Algo deu errado...",
+        body: "Erro!, Verifique suas credenciais e sua conexão!",
       };
     }
   }

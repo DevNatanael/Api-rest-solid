@@ -1,10 +1,11 @@
 import express, { Router } from "express";
 import generalUserController from "../controllers/Users/generalUserController";
+import loginRequired from "../middlewares/loginRequired";
 
 const router: Router = express.Router();
 
 // retorna todos os usuários
-router.get("/", generalUserController.getUsers);
+router.get("/",loginRequired, generalUserController.getUsers);
 
 // cria usuário
 router.post("/", generalUserController.createUsers);
