@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import { MongoClient } from "./database/mongo";
 import usersRoutes from "./routes/usersRoutes";
 import loginRoutes from './routes/loginRoutes'
+import imageRoutes from './routes/imageRoutes'
 
 config();
 class App {
@@ -21,6 +22,7 @@ class App {
   routes() {
     this.app.use("/users", usersRoutes);
     this.app.use("/login", loginRoutes);
+    this.app.use("/image", imageRoutes);
   }
 
   public async connectDB(): Promise<void> {
