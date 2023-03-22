@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export interface CreateImageParams{
-    imageName:string;
-    path:string;
+    filename:string;
+    originalname:string;
 }
 
 export interface ICreateImage{

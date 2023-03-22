@@ -1,8 +1,8 @@
 import express, { Router } from "express";
-import generalImageController from "../controllers/Images/generalImageController";
+import imageController from "../controllers/Images/imageController";
+
 const router: Router = express.Router();
 
-
-router.post("/", generalImageController.createImage);
+router.post("/", imageController.create);
 
 export default router;
