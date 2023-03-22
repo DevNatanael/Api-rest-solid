@@ -8,3 +8,4 @@ export interface CreateImageParams{
 export interface ICreateImage{
     create(params:CreateImageParams):Promise<any>
 }
+
