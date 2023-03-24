@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ObjectId } from "mongodb";
 import { IDeleteUserRepository } from "../../../controllers/Users/deleteUser/protocolDeleteUser";
 import { MongoClient } from "../../../database/mongo";
@@ -21,7 +22,7 @@ export class MongoDeleteUserRepository implements IDeleteUserRepository {
       throw new Error("Usuário não deletado");
     }
 
-    const { _id, ...rest } = user;
+    const { _id, password,...rest } = user;
 
     return { id: _id.toHexString(), ...rest };
   }

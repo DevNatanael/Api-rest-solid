@@ -7,6 +7,8 @@ const router: Router = express.Router();
 // retorna todos os usuários
 router.get("/",loginRequired, generalUserController.getUsers);
 
+router.get("/find/:id",generalUserController.getSingleUser)
+
 // cria usuário
 router.post("/", generalUserController.createUsers);
 

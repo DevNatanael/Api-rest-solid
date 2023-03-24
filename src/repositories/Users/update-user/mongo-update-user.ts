@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ObjectId } from "mongodb";
 import {
   IUpdateUserRepository,
@@ -25,7 +26,7 @@ export class MongoUpdateUserRepository implements IUpdateUserRepository {
       throw new Error("Usuário não encontrado");
     }
 
-    const { _id, ...rest } = user;
+    const { _id, password,...rest } = user;
 
     return { id: _id.toHexString(), ...rest };
   }

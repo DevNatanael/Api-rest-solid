@@ -4,11 +4,13 @@ import {
   MongoDeleteUserRepository,
   MongoGetUsersRepository,
   MongoUpdateUserRepository,
+  MongoGetSingleUserRepository
 } from "../../repositories/Users";
 import { CreateUserController } from "./createUser/createUser";
 import { DeleteUserController } from "./deleteUser/deleteUser";
 import { GetUsersController } from "./getUsers/getUsers";
 import { UpdateUserController } from "./updateUser/updateUser";
+import {GetSingleUserController} from './getSingleUser/getSingleUser'
 
  class GeneralUsersController {
   async getUsers(req: Request, res: Response) {
@@ -20,12 +22,19 @@ import { UpdateUserController } from "./updateUser/updateUser";
     res.status(statusCode).send(body);
   }
 
+  async getSingleUser(req:Request, res:Response){
+    const getSingleUserRepository = new MongoGetSingleUserRepository();
+    const getSingleUserController = new  GetSingleUserController(getSingleUserRepository)
+
+    const {body, statusCode} = await getSingleUserController.handle({params:req.params})
+
+    res.status(statusCode).send(body)
+  }
+
   async createUsers(req: Request, res: Response) {
     const mongoCreateUserRepository = new MongoCreateUserRepository();
 
-    const createUserController = new CreateUserController(
-      mongoCreateUserRepository
-    );
+    const createUserController = new CreateUserController(mongoCreateUserRepository);
 
     const { body, statusCode } = await createUserController.handle({
       body: req.body,
@@ -37,9 +46,7 @@ import { UpdateUserController } from "./updateUser/updateUser";
   async updateUser(req: Request, res: Response) {
     const mongoUpdateUsersRepository = new MongoUpdateUserRepository();
 
-    const updateUserController = new UpdateUserController(
-      mongoUpdateUsersRepository
-    );
+    const updateUserController = new UpdateUserController(mongoUpdateUsersRepository);
 
     const { body, statusCode } = await updateUserController.handle({
       body: req.body,
@@ -52,9 +59,7 @@ import { UpdateUserController } from "./updateUser/updateUser";
   async deleteUser(req: Request, res: Response) {
     const mongoDeleteUsersRepository = new MongoDeleteUserRepository();
 
-    const deleteUserController = new DeleteUserController(
-      mongoDeleteUsersRepository
-    );
+    const deleteUserController = new DeleteUserController(mongoDeleteUsersRepository);
 
     const { body, statusCode } = await deleteUserController.handle({
       params: req.params,
